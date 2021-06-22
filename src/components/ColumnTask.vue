@@ -8,9 +8,10 @@
     @dragstart="pickUpTask($event, taskIndex, columnIndex)"
     @drop.stop="moveTaskOrColumn($event, column.tasks, columnIndex, taskIndex)"
   >
-    <span class="w-full flex-no-shrink font-bold">
-      {{ task.name }}
-    </span>
+    <div class="w-full flex flex-no-shrink justify-between items-center font-bold">
+      <span>{{ task.name }}</span>
+      <span class="trello-close p-2 cursor-pointer" @click.stop="deleteTask">X</span>
+    </div>
     <p v-if="task.description" class="w-full flex-no-shrink mt-1 text-sm">
       {{ task.description }}
     </p>
@@ -40,6 +41,12 @@ export default {
       e.dataTransfer.setData("from-column-index", fromColumnIndex);
       e.dataTransfer.setData("type", "task");
     },
+    deleteTask() {
+      this.$store.commit("DELETE_TASK", {
+        tasks: this.column.tasks,
+        taskIndex: this.taskIndex
+      }); 
+    }
   },
 };
 </script>

@@ -40,6 +40,12 @@ export default new Vuex.Store({
         tasks: []
       });
     },
+    DELETE_COLUMN(store, { columnIndex }) {
+      store.board.columns.splice(columnIndex, 1)
+    },
+    DELETE_TASK(store, { tasks, taskIndex }) {
+      tasks.splice(taskIndex, 1)
+    },
     UPDATE_TASK(store, { task, key, value }) {
       task[key] = value;
     },
